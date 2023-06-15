@@ -1,0 +1,68 @@
+﻿<Window x:Class="BookClub.Views.OrderViewWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:BookClub.Views"
+        mc:Ignorable="d"
+        Title="Просмотр заказа" Height="450" Width="800" MinHeight="450" MinWidth="800">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="40"/>
+            <RowDefinition Height="*" />
+            <RowDefinition Height="40"/>
+        </Grid.RowDefinitions>
+        <StackPanel Orientation="Horizontal" Margin="3">
+            <Label Content="Сумма заказа: "/>
+            <Label Content="{Binding CostSum}"/>
+            <Label Content="Сумма скидки: "/>
+            <Label Content="{Binding DiscountSum}"/>
+        </StackPanel>
+        <ListBox Grid.Row="1" ItemsSource="{Binding ProductOrders}" Margin="3" SelectedItem="{Binding SelectedProductOrder}" HorizontalContentAlignment="Stretch">
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="100"/>
+                            <ColumnDefinition/>
+                            <ColumnDefinition Width="100"/>
+                        </Grid.ColumnDefinitions>
+                        <Image Source="{Binding Product.PhotoPath}" Height="100" Width="100" Grid.Column="0"/>
+                        <StackPanel Orientation="Vertical" Grid.Column="1">
+                            <Label Content="{Binding Product.Name}"/>
+                            <Label Content="{Binding Product.Description}"/>
+                            <StackPanel Orientation="Horizontal">
+                                <Label Content="Производитель"/>
+                                <Label Content="{Binding Product.Manufacturer.Name}"/>
+                            </StackPanel>
+                        </StackPanel>
+                        <StackPanel Orientation="Vertical" Grid.Column="2">
+                            <StackPanel Orientation="Horizontal">
+                                <Label Content="Цена: "/>
+                                <Label Content="{Binding Product.Cost}"/>
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal">
+                                <Label Content="Скидка: "/>
+                                <Label Content="{Binding Product.Discount}"/>
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal">
+                                <Label Content="Кол-во: "/>
+                                <TextBox Text="{Binding Quantity}" Width="30" LostFocus="TextBox_LostFocus"/>
+                            </StackPanel>
+                        </StackPanel>
+                    </Grid>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+            <ListBox.ContextMenu>
+                <ContextMenu>
+                    <MenuItem Header="Убрать" Command="{Binding Remove}"/>
+                </ContextMenu>
+            </ListBox.ContextMenu>
+        </ListBox>
+        <StackPanel Orientation="Horizontal" Grid.Row="2" HorizontalAlignment="Left" Margin="3">
+            <Label Content="Пункт выдачи: "/>
+            <ComboBox ItemsSource="{Binding TakePoints}" SelectedItem="{Binding SelectedTakePoint}" DisplayMemberPath="Name" Width="150" />
+        </StackPanel>
+        <Button Content="Сформировать заказ" Command="{Binding GenerateOrder}" HorizontalAlignment="Right" Width="120" Grid.Row="2" Margin="3"/>
+    </Grid>
+</Window>

@@ -1,0 +1,42 @@
+﻿<Window x:Class="BookClub.Views.TalonWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:BookClub.Views"
+        mc:Ignorable="d"
+        Title="Талон" Height="450" Width="400">
+    <Grid>
+        <StackPanel Orientation="Vertical">
+            <StackPanel Orientation="Horizontal" DataContext="{Binding Order}">
+                <Label Content="Заказ "/>
+                <Label Content="{Binding Number}"/>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" DataContext="{Binding Order}">
+                <Label Content="Дата "/>
+                <Label Content="{Binding DateOfOrder}"/>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal">
+                <Label Content="Состав "/>
+            </StackPanel>
+            <ListBox ItemsSource="{Binding Products}" DisplayMemberPath="Name" Height="100"/>
+            <StackPanel Orientation="Horizontal" DataContext="{Binding Order}">
+                <Label Content="Сумма "/>
+                <Label Content="{Binding CostSum}"/>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" DataContext="{Binding Order}">
+                <Label Content="Скидка "/>
+                <Label Content="{Binding DiscountSum}"/>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal">
+                <Label Content="Пункт выдачи "/>
+                <Label Content="{Binding TakePointName}"/>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" DataContext="{Binding Order}">
+                <Label Content="Код получения "/>
+                <Label Content="{Binding Code}" FontSize="30" FontWeight="Bold"/>
+            </StackPanel>
+            <Button Content="Сохранить в Pdf"  Margin="3" Command="{Binding SaveToPdf}"/>
+        </StackPanel>
+    </Grid>
+</Window>
